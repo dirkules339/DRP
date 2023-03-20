@@ -1,4 +1,5 @@
 import sys
+import os
 import numpy as np
 import pandas as pd
 from sqlalchemy import create_engine
@@ -18,8 +19,8 @@ def clean_data(df):
     categories.columns = category_colnames
 
     for column in categories:
-    categories[column] = categories[column].astype(str).str[-1:]
-    categories[column] = categories[column].astype(int)
+        categories[column] = categories[column].astype(str).str[-1:]
+        categories[column] = categories[column].astype(int)
 
     df.drop(['categories'], axis=1, inplace=True)
     df = pd.concat([df,categories], join='inner', axis=1)
@@ -29,8 +30,10 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
-    engine = create_engine('sqlite:///disaster_response_db.db')
-    df.to_sql('disaster_response_table', engine, index=False,if_exists='replace')
+    database_filepath = "disaster_response_db.db"
+    engine = create_engine('sqlite:///' + database_filepath)
+    table_name = os.path.basename(database_filepath).replace(".db","") + "_table"
+    df.to_sql(table_name, engine, index=False, if_exists='replace')
 
 
 def main():
