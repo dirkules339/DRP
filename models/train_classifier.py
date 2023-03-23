@@ -82,6 +82,14 @@ def build_model():
         ('classifier', MultiOutputClassifier(AdaBoostClassifier()))
     ])
     
+    parameters = {
+        'classifier__estimator__learning_rate': [0.01, 0.02, 0.05],
+        'classifier__estimator__n_estimators': [10, 20, 40]
+    
+    }
+         
+    model = GridSearchCV(pipeline, param_grid=parameters, model=5, n_jobs=-1, verbose=3)
+    
     return model
 
 def evaluate_model(model, X_test, Y_test, category_names):
