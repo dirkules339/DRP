@@ -8,7 +8,7 @@ In this project, the pre-labeled disaster messages will be used to build a disas
 This project includes a web application where disaster response worker can input messages received and get classification results.
 
 ## GitHub Repo 
-## github.com/dirkules339/DRP.git
+** github.com/dirkules339/DRP.git**
 
 
 ## File Descriptions
